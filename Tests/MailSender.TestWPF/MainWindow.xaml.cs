@@ -11,11 +11,11 @@ namespace MailSender.TestWPF
 
         private void SendButton_OnClick(object sender, RoutedEventArgs e)
         {
-            using var message = new MailMessage("viktor.kalnik@yandex.ru", "v.kalnik@mail.ru");
-            message.Subject = "Тестовое сообщение от " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff");
-            message.Body = "Тело тестового сообщения " + DateTime.Now.ToString("F");
+            using var message = new MailMessage(MailSenderTestWpfConfig.SendersAddress, MailSenderTestWpfConfig.RecipientAddress);
+            message.Subject = MailSenderTestWpfConfig.MessageSubject;
+            message.Body = MailSenderTestWpfConfig.MessageBody;
 
-            using var client = new SmtpClient("smtp.yandex.ru", 25)
+            using var client = new SmtpClient(MailSenderTestWpfConfig.SmtpServer, MailSenderTestWpfConfig.SmtpServerPort)
             {
                 EnableSsl = true,
                 Credentials = new NetworkCredential
@@ -23,7 +23,7 @@ namespace MailSender.TestWPF
                     UserName = LoginEdit.Text,
                     SecurePassword = PasswordEdit.SecurePassword,
                 }
-        };
+            };
 
             try
             {
