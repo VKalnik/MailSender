@@ -11,29 +11,11 @@ namespace MailSender.TestWPF
 
         private void SendButton_OnClick(object sender, RoutedEventArgs e)
         {
-            using var message = new MailMessage(MailSenderTestWpfConfig.SendersAddress, MailSenderTestWpfConfig.RecipientAddress);
-            message.Subject = MailSenderTestWpfConfig.MessageSubject;
-            message.Body = MailSenderTestWpfConfig.MessageBody;
 
-            using var client = new SmtpClient(MailSenderTestWpfConfig.SmtpServer, MailSenderTestWpfConfig.SmtpServerPort)
+            using (var mailSenderServiceClass = new MailSenderServiceClass(LoginEdit.Text, PasswordEdit.SecurePassword, MailSenderTestWpfConfig.SmtpServer, MailSenderTestWpfConfig.SmtpServerPort, MailSenderTestWpfConfig.SendersAddress))
             {
-                EnableSsl = true,
-                Credentials = new NetworkCredential
-                {
-                    UserName = LoginEdit.Text,
-                    SecurePassword = PasswordEdit.SecurePassword,
-                }
+                mailSenderServiceClass.Send(MailSenderTestWpfConfig.MessageSubject, MailSenderTestWpfConfig.MessageBody, MailSenderTestWpfConfig.RecipientAddress);
             };
-
-            try
-            {
-                client.Send(message);
-                MessageBox.Show("Почта успешно отправлена", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (SmtpException smtp_exception)
-            {
-                MessageBox.Show(smtp_exception.Message, "Ошибка при отправке почты", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
     }
 }
