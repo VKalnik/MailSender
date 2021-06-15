@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace MailSender.TestWPF
 {
@@ -11,7 +12,7 @@ namespace MailSender.TestWPF
 
             using (var mailSenderServiceClass = new MailSenderServiceClass(LoginEdit.Text, PasswordEdit.SecurePassword, MailSenderTestWpfConfig.SmtpServer, MailSenderTestWpfConfig.SmtpServerPort, MailSenderTestWpfConfig.SendersAddress))
             {
-                mailSenderServiceClass.Send(MailSenderTestWpfConfig.MessageSubject, MailSenderTestWpfConfig.MessageBody, MailSenderTestWpfConfig.RecipientAddress);
+                mailSenderServiceClass.Send(SubjectEdit.Text + " Время отправки: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff"), BodyEdit.Text, MailSenderTestWpfConfig.RecipientAddress);
             };
         }
 
