@@ -14,5 +14,10 @@ namespace MailSender.TestWPF
                 mailSenderServiceClass.Send(MailSenderTestWpfConfig.MessageSubject, MailSenderTestWpfConfig.MessageBody, MailSenderTestWpfConfig.RecipientAddress);
             };
         }
+
+        private void Exit_OnClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
