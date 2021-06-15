@@ -47,11 +47,16 @@ namespace MailSender.TestWPF
             try
             {
                 client.Send(message);
-                MessageBox.Show("Почта успешно отправлена", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show("Почта успешно отправлена", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Information);
+                SendEndWindow sendEndWindow = new SendEndWindow();
+                sendEndWindow.ShowDialog();
             }
             catch (SmtpException smtp_exception)
             {
-                MessageBox.Show(smtp_exception.Message, "Ошибка при отправке почты", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show(smtp_exception.Message, "Ошибка при отправке почты", MessageBoxButton.OK, MessageBoxImage.Error);
+                SendErrorWindow sendErrorWindow = new SendErrorWindow();
+                sendErrorWindow.ErrorMsg.Text = smtp_exception.Message;
+                sendErrorWindow.ShowDialog();
             }
         }
 

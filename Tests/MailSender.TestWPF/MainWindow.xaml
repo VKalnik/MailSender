@@ -12,6 +12,6 @@
         <TextBox Name="LoginEdit" HorizontalAlignment="Left" Margin="85,155,0,0" Text="User name" TextWrapping="Wrap" VerticalAlignment="Top" Width="253" Height="24"/>
         <TextBlock HorizontalAlignment="Left" Margin="463,122,0,0" Text="Пароль" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="-0.061,0.504" Height="20" Width="253"/>
         <PasswordBox x:Name="PasswordEdit" HorizontalAlignment="Left" Margin="463,155,0,0" VerticalAlignment="Top" Width="267" Height="21"/>
-
+       
     </Grid>
 </Window>
