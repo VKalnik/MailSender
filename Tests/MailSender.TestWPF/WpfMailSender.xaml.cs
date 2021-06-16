@@ -3,9 +3,9 @@ using System.Windows;
 
 namespace MailSender.TestWPF
 {
-    public partial class MainWindow
+    public partial class WpfMailSender
     {
-        public MainWindow() => InitializeComponent();
+        public WpfMailSender() => InitializeComponent();
 
         private void SendButton_OnClick(object sender, RoutedEventArgs e)
         {
