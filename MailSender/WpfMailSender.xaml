@@ -90,7 +90,14 @@
                             <Button ToolTip="Удаление" fa:Awesome.Content="Solid_TrashAlt" Foreground="Red"/>
                         </ToolBar>
                     </ToolBarTray>
-                    
+                    <DataGrid Grid.Row="1" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" MinWidth="40" MaxWidth="60"/>
+                            <DataGridTextColumn Header="Имя" MinWidth="150"/>
+                            <DataGridTextColumn Header="Адрес" MinWidth="140"/>
+                            <DataGridTextColumn Header="Описание" Width="*" MinWidth="120"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Расписание"></TabItem>
