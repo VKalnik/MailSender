@@ -1,0 +1,15 @@
+﻿<Window x:Class="MailSender.TestWPF.SendErrorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MailSender.TestWPF"
+        mc:Ignorable="d"
+        Title="Отправка почты" Height="200" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <StackPanel>
+        <TextBlock HorizontalAlignment="Center" Text="Ошибка при отправке почты" FontWeight="Bold" FontSize="22" Foreground="#FFF11F1F" Margin="0, 20"/>
+        <TextBlock x:Name="ErrorMsg" Foreground="#FFF11F1F" Margin="5, 0, 5, 20"/>
+        <Button Content="OK" FontWeight="Bold" FontSize="20" Padding="40, 5" HorizontalAlignment="Center"  VerticalAlignment="Top" Click="Button_Click"/>
+
+    </StackPanel>
+</Window>

@@ -1,0 +1,35 @@
+﻿<Window x:Class="MailSender.TestWPF.WpfMailSender"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MailSender.TestWPF"
+        mc:Ignorable="d"
+        Title="WpfTestMailSender" Height="470" Width="817" SizeToContent="Height" ResizeMode="NoResize">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход" Click="Exit_OnClick"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <StackPanel x:Name="WpfTestMailSender">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Имя пользователя" Width="110"/>
+                <TextBox Name="LoginEdit" Width="680"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Пароль" Width="110"/>
+                <PasswordBox x:Name="PasswordEdit" Width="680"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="Тема письма" Width="110"/>
+                <TextBox Name="SubjectEdit" Width="680"/>
+            </StackPanel>
+            <DockPanel>
+                <TextBox Name="BodyEdit" Height="253" Margin="5"/>
+            </DockPanel>
+
+            <Button Content="Отправить" FontSize="22" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="50" Width="180" Margin="0, 0, 0, 5" Click="SendButton_OnClick"/>
+        </StackPanel>
+    </DockPanel>
+</Window>
