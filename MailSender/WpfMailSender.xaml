@@ -37,6 +37,7 @@
                         <ToolBar>
                             <Label Content="Сервера" Margin="0,0,25,0"/>
                             <ComboBox Width="120" SelectedIndex="0" ItemsSource="{x:Static data:TestData.Servers}"
+                                      Name="ServersList"
                                       DisplayMemberPath="Name"/>
                             <Button ToolTip="Добавить">
                                 <StackPanel Orientation="Horizontal">
@@ -57,10 +58,15 @@
                         </ToolBar>
                         <ToolBar Band="1" BandIndex="0">
                             <Label Content="Отправители"/>
-                            <ComboBox Width="120" SelectedIndex="0">
-                                <ComboBoxItem Content="Отправитель 1"/>
-                                <ComboBoxItem Content="Отправитель 2"/>
-                                <ComboBoxItem Content="Отправитель 3"/>
+                            <ComboBox Width="120" SelectedIndex="0" ItemsSource="{x:Static data:TestData.Senders}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type model:Sender}">
+                                        <StackPanel Orientation="Horizontal" ToolTip="{Binding Description}">
+                                            <TextBlock Text="{Binding Name}" Margin="0,0, 3,0"/>
+                                            <TextBlock Text="{Binding Address}" Opacity="0.5"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
                             </ComboBox>
                             <Button ToolTip="Добавить">
                                 <StackPanel Orientation="Horizontal">

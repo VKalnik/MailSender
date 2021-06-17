@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MailSender.Data;
 
 namespace MailSender
 {
@@ -23,6 +24,7 @@ namespace MailSender
         public WpfMailSender()
         {
             InitializeComponent();
+            //ServersList.ItemsSource = TestData.Servers; // Так можно, но НЕ НАДО!
         }
 
         private void Exit_OnClick(object sender, RoutedEventArgs e)
