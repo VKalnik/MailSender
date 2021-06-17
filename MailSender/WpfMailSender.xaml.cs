@@ -29,5 +29,8 @@ namespace MailSender
         {
             Close();
         }
+
+        private void About_OnClick(object sender, RoutedEventArgs e) =>
+            MessageBox.Show("Рассыльщик почты", "О программе", MessageBoxButton.OK);
     }
 }
