@@ -95,12 +95,18 @@
                             <Button ToolTip="Удаление" fa:Awesome.Content="Solid_TrashAlt" Foreground="Red"/>
                         </ToolBar>
                     </ToolBarTray>
-                    <DataGrid Grid.Row="1" AutoGenerateColumns="False">
+                    <DataGrid Grid.Row="1" AutoGenerateColumns="False"
+                              ItemsSource="{x:Static data:TestData.Recipients}"
+                              GridLinesVisibility="Vertical"
+                              VerticalGridLinesBrush="Gray"
+                              AlternatingRowBackground="LightGray"
+                              CanUserAddRows="False"
+                              HeadersVisibility="Column">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" MinWidth="40" MaxWidth="60"/>
-                            <DataGridTextColumn Header="Имя" MinWidth="150"/>
-                            <DataGridTextColumn Header="Адрес" MinWidth="140"/>
-                            <DataGridTextColumn Header="Описание" Width="*" MinWidth="120"/>
+                            <DataGridTextColumn Header="ID" MinWidth="40" MaxWidth="60" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Имя" MinWidth="150" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Адрес" MinWidth="140" Binding="{Binding Address}"/>
+                            <DataGridTextColumn Header="Описание" Width="*" MinWidth="120" Binding="{Binding Description}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
