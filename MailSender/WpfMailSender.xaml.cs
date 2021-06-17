@@ -34,5 +34,10 @@ namespace MailSender
 
         private void About_OnClick(object sender, RoutedEventArgs e) =>
             MessageBox.Show("Рассыльщик почты", "О программе", MessageBoxButton.OK);
+
+        private void Shedule_OnClick(object sender, RoutedEventArgs e)
+        {
+            TabItemiShedule.IsSelected = true;
+        }
     }
 }
