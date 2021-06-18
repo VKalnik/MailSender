@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
-        xmlns:wpftk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:l="clr-namespace:MailSender"
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:model="clr-namespace:MailSender.Models;assembly=MailSender.lib"
@@ -126,7 +126,7 @@
                             <TextBlock HorizontalAlignment="Center" Margin="0,5,0,0">Дата отправки</TextBlock>
                             <Calendar></Calendar>
                             <TextBlock HorizontalAlignment="Center" Margin="0,5,0,0">Время отправки</TextBlock>
-                            <wpftk:TimePicker Margin="3"/>
+                            <xctk:TimePicker Margin="3"/>
                             <StackPanel Margin="3,0">
                                 <StackPanel.Resources>
                                     <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
