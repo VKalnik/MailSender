@@ -38,6 +38,22 @@ namespace MailSender
         private void Shedule_OnClick(object sender, RoutedEventArgs e)
         {
             TabItemiShedule.IsSelected = true;
+            //tcMain.SelectedIndex = 1;
+        }
+
+        private void MailSend_OnClick(object Sender, RoutedEventArgs E)
+        {
+            if (tbMessageBody.Text == "")
+            {
+                MessageBox.Show("Письмо не заполнено", "Отправка почты", MessageBoxButton.OK);
+                tcMain.SelectedIndex = 2;
+            }
+            else
+            {
+                MessageBox.Show("Почта отправлена", "Отправка почты", MessageBoxButton.OK);
+            }
+                
+
         }
     }
 }

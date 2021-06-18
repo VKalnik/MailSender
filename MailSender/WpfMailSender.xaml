@@ -28,7 +28,7 @@
                 <TextBlock Text="Готов!"></TextBlock>
             </StatusBarItem>
         </StatusBar>
-        <TabControl>
+        <TabControl x:Name="tcMain">
             <TabItem Header="Списки">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -133,8 +133,8 @@
                                         <Setter Property="Margin" Value="0,3"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Content="Отправить сейчас"></Button>
-                                <Button Content="Запланировать"></Button>
+                                <Button Content="Отправить сейчас" Click="MailSend_OnClick"/>
+                                <Button Content="Запланировать"/>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -238,7 +238,7 @@
                                 <TextBox Text="{Binding SelectedItem.Title, ElementName=MessageList}"/>
                             </GroupBox>
                             <GroupBox Header="Текст письма">
-                                <TextBox AcceptsReturn="True" AcceptsTab="True"
+                                <TextBox x:Name="tbMessageBody" AcceptsReturn="True" AcceptsTab="True"
                                          Text="{Binding SelectedItem.Text, ElementName=MessageList}"/>
                             </GroupBox>
                         </DockPanel>
