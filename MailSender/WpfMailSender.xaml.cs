@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MailSender.Data;
+﻿using System.Windows;
 
 namespace MailSender
 {
@@ -50,10 +36,10 @@ namespace MailSender
             }
             else
             {
-                MessageBox.Show("Почта отправлена", "Отправка почты", MessageBoxButton.OK);
+                MessageBox.Show("Тест: Типа почта отправлена\n" + "Сервер: " + Data.TestData.Servers[ServersList.SelectedIndex].Address + "\n" + 
+                    "Порт: " + Data.TestData.Servers[ServersList.SelectedIndex].Port + "\n" +
+                    "SSL: " + Data.TestData.Servers[ServersList.SelectedIndex].UseSSl, "Отправка почты", MessageBoxButton.OK);
             }
-                
-
         }
     }
 }

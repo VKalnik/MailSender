@@ -38,12 +38,13 @@
                     <ToolBarTray Grid.Row="0">
                         <ToolBar>
                             <Label Content="Сервера" Margin="0,0,25,0"/>
-                            <ComboBox Width="120" SelectedIndex="0" ItemsSource="{x:Static data:TestData.Servers}">
+                            <ComboBox Width="120" SelectedIndex="0" Name="ServersList"
+                                      ItemsSource="{x:Static data:TestData.Servers}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Name}" Margin="0,0, 3,0"/>
-                                            <TextBlock Text="{Binding Address}" Opacity="0.5"/>
+                                            <TextBlock Text="{Binding Address}" Opacity="0.5">:</TextBlock>
                                             <TextBlock Text="{Binding Port}" Opacity="0.5"/>
                                         </StackPanel>
                                     </DataTemplate>
