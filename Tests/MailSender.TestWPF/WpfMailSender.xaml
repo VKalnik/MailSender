@@ -3,33 +3,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MailSender.TestWPF"
+        xmlns:l="clr-namespace:MailSender.TestWPF"
         mc:Ignorable="d"
-        Title="WpfTestMailSender" Height="470" Width="817" SizeToContent="Height" ResizeMode="NoResize">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Click="Exit_OnClick"></MenuItem>
-            </MenuItem>
-        </Menu>
-        <StackPanel x:Name="WpfTestMailSender">
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <TextBlock Text="Имя пользователя" Width="110"/>
-                <TextBox Name="LoginEdit" Width="680"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <TextBlock Text="Пароль" Width="110"/>
-                <PasswordBox x:Name="PasswordEdit" Width="680"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="5">
-                <TextBlock Text="Тема письма" Width="110"/>
-                <TextBox Name="SubjectEdit" Width="680"/>
-            </StackPanel>
-            <DockPanel>
-                <TextBox Name="BodyEdit" Height="253" Margin="5"/>
-            </DockPanel>
+        Title="WpfTestMailSender" 
+        Height="450" Width="800">
+    <Grid>
+        <Slider VerticalAlignment="Top" Margin="30,0" Minimum="0" Maximum="700"
+                Name="HorizontalPos"/>
+        <Slider Orientation="Vertical" HorizontalAlignment="Left" Margin="10,30" Minimum="0" Maximum="350"
+                Name="VerticalPos"/>
+        <Slider VerticalAlignment="Bottom" Margin="130,10" Minimum="-180" Maximum="180"
+                Name="Angle"/>
 
-            <Button Content="Отправить" FontSize="22" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="50" Width="180" Margin="0, 0, 0, 5" Click="SendButton_OnClick"/>
-        </StackPanel>
-    </DockPanel>
+
+        <TextBox HorizontalAlignment="Right" VerticalAlignment="Top" Margin="40,30" Width="120"
+                 Text="{Binding Value, ElementName=HorizontalPos}"/>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="10,10" Width="120"
+                 Text="{Binding ElementName=VerticalPos, Path=Value, StringFormat=f2}"/>
+        <TextBox HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="10,10" Width="120"
+                 Text="{Binding ElementName=Angle, Path=Value, StringFormat=f2}"/>
+
+        <Canvas Margin="30">
+            <Ellipse Width="70" Height="30" Fill="Blue" Stroke="Red" StrokeThickness="3" RenderTransformOrigin="0.5,0.5"
+                     Canvas.Left="{Binding Value, ElementName=HorizontalPos}" 
+                     Canvas.Bottom="{Binding Value, ElementName=VerticalPos}">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="{Binding ElementName=Angle, Path=Value}"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+        </Canvas>
+    </Grid>
 </Window>
