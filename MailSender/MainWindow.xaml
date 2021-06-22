@@ -39,8 +39,9 @@
                     <ToolBarTray Grid.Row="0">
                         <ToolBar>
                             <Label Content="Сервера" Margin="0,0,25,0"/>
-                            <ComboBox Width="120" SelectedIndex="0" Name="ServersList"
-                                      ItemsSource="{x:Static data:TestData.Servers}">
+                            <ComboBox Width="120" SelectedIndex="0"
+                                      ItemsSource="{Binding Servers}"
+                                      >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -51,6 +52,9 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+                            <Button fa:Awesome.Content="Solid_Download" 
+                                    Command="{Binding LoadServersCommand}" 
+                                    ToolTip="Загрузить список серверов"/>
                             <Button ToolTip="Добавить">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Height="14" Icon="Solid_PlusCircle" 
@@ -135,7 +139,7 @@
                                         <Setter Property="Margin" Value="0,3"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Content="Отправить сейчас" Click="MailSend_OnClick"/>
+                                <Button Content="Отправить сейчас"/>
                                 <Button Content="Запланировать"/>
                             </StackPanel>
                         </StackPanel>

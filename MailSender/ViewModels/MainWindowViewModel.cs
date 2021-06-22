@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using MailSender.Commands;
+using MailSender.Data;
+using MailSender.Models;
 using MailSender.ViewModels.Base;
 
 namespace MailSender.ViewModels
@@ -46,5 +49,26 @@ namespace MailSender.ViewModels
         {
             MessageBox.Show("Рассыльщик почты", "О программе");
         }
+
+        public ObservableCollection<Server> Servers { get; } = new ();
+
+        #region Command LoadServersCommand - Загрузка списка серверов
+
+        /// <summary>Загрузка списка серверов</summary>
+        private LambdaCommand _LoadServersCommand;
+
+        /// <summary>Загрузка списка серверов</summary>
+        public ICommand LoadServersCommand => _LoadServersCommand
+            ??= new(OnLoadServersCommandExecuted);
+
+        /// <summary>Логика выполнения - Загрузка списка серверов</summary>
+        private void OnLoadServersCommandExecuted(object p)
+        {
+            Servers.Clear();
+            foreach (var server in TestData.Servers)
+                Servers.Add(server);
+        }
+
+        #endregion
     }
 }

@@ -23,19 +23,19 @@ namespace MailSender
             //tcMain.SelectedIndex = 1;
         }
 
-        private void MailSend_OnClick(object Sender, RoutedEventArgs E)
-        {
-            if (tbMessageBody.Text == "")
-            {
-                MessageBox.Show("Письмо не заполнено", "Отправка почты", MessageBoxButton.OK);
-                tcMain.SelectedIndex = 2;
-            }
-            else
-            {
-                MessageBox.Show("Тест: Типа почта отправлена\n" + "Сервер: " + Data.TestData.Servers[ServersList.SelectedIndex].Address + "\n" + 
-                    "Порт: " + Data.TestData.Servers[ServersList.SelectedIndex].Port + "\n" +
-                    "SSL: " + Data.TestData.Servers[ServersList.SelectedIndex].UseSSl, "Отправка почты", MessageBoxButton.OK);
-            }
-        }
+        //private void MailSend_OnClick(object Sender, RoutedEventArgs E)
+        //{
+        //    if (tbMessageBody.Text == "")
+        //    {
+        //        MessageBox.Show("Письмо не заполнено", "Отправка почты", MessageBoxButton.OK);
+        //        tcMain.SelectedIndex = 2;
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Тест: Типа почта отправлена\n" + "Сервер: " + Data.TestData.Servers[ServersList.SelectedIndex].Address + "\n" + 
+        //            "Порт: " + Data.TestData.Servers[ServersList.SelectedIndex].Port + "\n" +
+        //            "SSL: " + Data.TestData.Servers[ServersList.SelectedIndex].UseSSl, "Отправка почты", MessageBoxButton.OK);
+        //    }
+        //}
     }
 }
