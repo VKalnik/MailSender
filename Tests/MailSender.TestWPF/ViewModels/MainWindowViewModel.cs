@@ -1,4 +1,7 @@
-﻿using MailSender.TestWPF.ViewModels.Base;
+﻿using System.Windows;
+using System.Windows.Input;
+using MailSender.TestWPF.Commands;
+using MailSender.TestWPF.ViewModels.Base;
 
 namespace MailSender.TestWPF.ViewModels
 {
@@ -36,12 +39,13 @@ namespace MailSender.TestWPF.ViewModels
 
             set
             {
-                if(Set(ref _Title, value));
-                    OnPropertyChanged(nameof(TitleLenght));
+                if (Set(ref _Title, value)) ;
+                OnPropertyChanged(nameof(TitleLenght));
             }
         }
 
         private double _LeftPos;
+
         public double LeftPos
         {
             get => _LeftPos;
@@ -52,13 +56,23 @@ namespace MailSender.TestWPF.ViewModels
             //    OnPropertyChanged();
             //}
 
-            set
-            {
-                Set(ref _LeftPos, value);
-            }
+            set { Set(ref _LeftPos, value); }
         }
 
         private double _TopftPos;
+
         public double TopftPos { get => _TopftPos; set => Set(ref _TopftPos, value); }
+
+        private ICommand _ShowMessageCommand;
+
+        public ICommand ShowMessageCommand => _ShowMessageCommand
+            ??= new LambdaCommand(OnShowMessageCommandExecuted, CanShowMessageCommandExecute);
+
+        private bool CanShowMessageCommandExecute(object p) => p != null;
+
+        private void OnShowMessageCommandExecuted(object p)
+        {
+            MessageBox.Show(p.ToString());
+        }
     }
 }
