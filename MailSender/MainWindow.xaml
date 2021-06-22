@@ -9,8 +9,9 @@
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:model="clr-namespace:MailSender.Models;assembly=MailSender.lib"
         mc:Ignorable="d"
-        Topmost="True"
-        Title="Рассыльщик почты" Height="450" Width="800">
+        DataContext="{Binding MainModel, Source={StaticResource Locator}}"
+        Title="{Binding Title}" 
+        Height="450" Width="800">
     <DockPanel>
         <Menu>
             <MenuItem Header="Файл">
@@ -25,7 +26,7 @@
                 <ResizeGrip/>
             </StatusBarItem>
             <StatusBarItem>
-                <TextBlock Text="Готов!"></TextBlock>
+                <TextBlock Text="{Binding Status}"></TextBlock>
             </StatusBarItem>
         </StatusBar>
         <TabControl x:Name="tcMain">
