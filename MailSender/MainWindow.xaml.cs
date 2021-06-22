@@ -2,24 +2,20 @@
 
 namespace MailSender
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            //ServersList.ItemsSource = TestData.Servers; // Так можно, но НЕ НАДО!
         }
 
-        private void Exit_OnClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        //private void Exit_OnClick(object sender, RoutedEventArgs e)
+        //{
+        //    Close();
+        //}
 
-        private void About_OnClick(object sender, RoutedEventArgs e) =>
-            MessageBox.Show("Рассыльщик почты", "О программе", MessageBoxButton.OK);
+        //private void About_OnClick(object sender, RoutedEventArgs e) =>
+        //    MessageBox.Show("Рассыльщик почты", "О программе", MessageBoxButton.OK);
 
         private void Shedule_OnClick(object sender, RoutedEventArgs e)
         {
