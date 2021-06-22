@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:MailSender.TestWPF"
+        xmlns:vm="clr-namespace:MailSender.TestWPF.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="{Binding Title}" 
         Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Slider VerticalAlignment="Top" Margin="30,0" Minimum="0" Maximum="700"
                 Name="HorizontalPos"/>
@@ -21,7 +25,7 @@
         <TextBox HorizontalAlignment="Left" VerticalAlignment="Bottom"  Margin="10,10" Width="120"
                  Text="{Binding ElementName=VerticalPos, Path=Value, StringFormat=f2}"/>
         <TextBox HorizontalAlignment="Right" VerticalAlignment="Bottom"  Margin="10,10" Width="120"
-                 Text="{Binding ElementName=Angle, Path=Value, StringFormat=f2}"/>
+                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Canvas Margin="30">
             <Ellipse Width="70" Height="30" Fill="Blue" Stroke="Red" StrokeThickness="3" RenderTransformOrigin="0.5,0.5"
