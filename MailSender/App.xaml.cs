@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using MailSender.Interfaces;
 using MailSender.Services;
 using MailSender.ViewModels;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,9 @@ namespace MailSender
         {
             services.AddTransient<MainWindowViewModel>();
             services.AddSingleton<ServersRepository>();
+
+            services.AddSingleton<IStatistic, InMemoryStatisticService>();
+            services.AddSingleton<IMailService, DebugMailService>();
         }
 
 

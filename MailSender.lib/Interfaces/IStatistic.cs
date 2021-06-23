@@ -4,7 +4,8 @@ namespace MailSender.Interfaces
 {
     public interface IStatistic
     {
-        int SendedMailCount { get; }
+        int SendedMailsCount { get; }
+        event EventHandler SendedMailsCountChanged;
 
         int SendersCount { get; }
 
