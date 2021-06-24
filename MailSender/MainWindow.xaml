@@ -1,4 +1,4 @@
-﻿<Window x:Class="MailSender.WpfMailSender"
+﻿<Window x:Class="MailSender.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,15 +9,16 @@
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:model="clr-namespace:MailSender.Models;assembly=MailSender.lib"
         mc:Ignorable="d"
-        Topmost="True"
-        Title="Рассыльщик почты" Height="450" Width="800">
+        DataContext="{Binding MainModel, Source={StaticResource Locator}}"
+        Title="{Binding Title}" 
+        Height="450" Width="800">
     <DockPanel>
         <Menu>
             <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Click="Exit_OnClick"></MenuItem>
+                <MenuItem Header="Выход" Command="{Binding ExitCommand}"/>
             </MenuItem>
             <MenuItem Header="Справка">
-                <MenuItem Header="О программе" Click="About_OnClick"></MenuItem>
+                <MenuItem Header="О программе" Command="{Binding AboutCommand}"/>
             </MenuItem>
         </Menu>
         <StatusBar>
@@ -25,7 +26,7 @@
                 <ResizeGrip/>
             </StatusBarItem>
             <StatusBarItem>
-                <TextBlock Text="Готов!"></TextBlock>
+                <TextBlock Text="{Binding Status}"></TextBlock>
             </StatusBarItem>
         </StatusBar>
         <TabControl x:Name="tcMain">
@@ -38,8 +39,9 @@
                     <ToolBarTray Grid.Row="0">
                         <ToolBar>
                             <Label Content="Сервера" Margin="0,0,25,0"/>
-                            <ComboBox Width="120" SelectedIndex="0" Name="ServersList"
-                                      ItemsSource="{x:Static data:TestData.Servers}">
+                            <ComboBox Width="120" SelectedIndex="0"
+                                      ItemsSource="{Binding Servers}"
+                                      >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -50,6 +52,9 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+                            <Button fa:Awesome.Content="Solid_Download" 
+                                    Command="{Binding LoadServersCommand}" 
+                                    ToolTip="Загрузить список серверов"/>
                             <Button ToolTip="Добавить">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:ImageAwesome Height="14" Icon="Solid_PlusCircle" 
@@ -134,7 +139,7 @@
                                         <Setter Property="Margin" Value="0,3"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Content="Отправить сейчас" Click="MailSend_OnClick"/>
+                                <Button Content="Отправить сейчас" Command="{Binding SendMessageCommand}"/>
                                 <Button Content="Запланировать"/>
                             </StackPanel>
                         </StackPanel>
