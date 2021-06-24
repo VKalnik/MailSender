@@ -10,6 +10,7 @@ namespace MailSender.Services.InMemory
            .Select(
                 i => new Recipient
                 {
+                    Id = i,
                     Name = $"Получатель {i}",
                     Address = $"recipient-{i}.server.ru",
                     Description = $"Описание получателя {i}"

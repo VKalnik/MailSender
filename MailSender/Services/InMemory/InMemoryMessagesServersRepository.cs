@@ -11,6 +11,7 @@ namespace MailSender.Services.InMemory
            .Select(
                 i => new Message()
                 {
+                    Id = i,
                     Title = $"Сообщение {i}",
                     Text = $"Текст сообщения {i}",
                 });

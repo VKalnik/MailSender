@@ -11,6 +11,7 @@ namespace MailSender.Services.InMemory
            .Select(
                 i => new Server
                 {
+                    Id = i,
                     Name = $"Сервер {i}",
                     Address = $"smtp.server-{i}.ru",
                     Login = $"User - {i}",
