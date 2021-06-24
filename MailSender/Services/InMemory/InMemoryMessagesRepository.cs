@@ -5,7 +5,7 @@ using MailSender.Models;
 
 namespace MailSender.Services.InMemory
 {
-    public class InMemoryMessagesServersRepository : InMemoryRepository<Message>
+    public class InMemoryMessagesRepository : InMemoryRepository<Message>
     {
         private static IEnumerable<Message> GetTestData(int Count = 100) => Enumerable.Range(1, Count)
            .Select(
@@ -16,7 +16,7 @@ namespace MailSender.Services.InMemory
                     Text = $"Текст сообщения {i}",
                 });
 
-        public InMemoryMessagesServersRepository() : base(GetTestData()) { }
+        public InMemoryMessagesRepository() : base(GetTestData()) { }
 
         public override void Update(Message item)
         {
