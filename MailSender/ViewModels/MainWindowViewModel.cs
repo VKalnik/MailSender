@@ -123,5 +123,15 @@ namespace MailSender.ViewModels
         }
 
         #endregion
+
+        #region SelectedRecipient : Recipient - Выбрвный получатель
+
+        /// <summary>Выбрвный получатель</summary>
+        private Recipient _SelectedRecipient;
+
+        /// <summary>Выбрвный получатель</summary>
+        public Recipient SelectedRecipient { get => _SelectedRecipient; set => Set(ref _SelectedRecipient, value); }
+
+        #endregion
     }
 }
