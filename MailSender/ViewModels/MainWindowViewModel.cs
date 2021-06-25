@@ -11,26 +11,25 @@ namespace MailSender.ViewModels
 {
     public class MainWindowViewModel : ViewModel
     {
-        private readonly ServersRepository _ServersRepository;
-        private readonly IRepository<Server> _ServerRepository;
-        private readonly IRepository<Sender> _SenderRepository;
-        private readonly IRepository<Recipient> _RecipientRepository;
-        private readonly IRepository<Message> _MessageRepository;
+        private readonly IRepository<Server> _ServersRepository;
+        private readonly IRepository<Sender> _SendersRepository;
+        private readonly IRepository<Recipient> _RecipientsRepository;
+        private readonly IRepository<Message> _MessagesRepository;
         private readonly IMailService _MailService;
         private readonly IStatistic _Statistic;
 
         public MainWindowViewModel(
-            IRepository<Server> ServerRepository,
-            IRepository<Sender> SenderRepository,
-            IRepository<Recipient> RecipientRepository,
-            IRepository<Message> MessageRepository,
+            IRepository<Server> ServersRepository,
+            IRepository<Sender> SendersRepository,
+            IRepository<Recipient> RecipientsRepository,
+            IRepository<Message> MessagesRepository,
             IMailService MailService,
             IStatistic Statistic)
         {
-            _ServerRepository = ServerRepository;
-            _SenderRepository = SenderRepository;
-            _RecipientRepository = RecipientRepository;
-            _MessageRepository = MessageRepository;
+            _ServersRepository = ServersRepository;
+            _SendersRepository = SendersRepository;
+            _RecipientsRepository = RecipientsRepository;
+            _MessagesRepository = MessagesRepository;
             _MailService = MailService;
             _Statistic = Statistic;
         }
@@ -76,22 +75,31 @@ namespace MailSender.ViewModels
         }
 
         public ObservableCollection<Server> Servers { get; } = new ();
+        public ObservableCollection<Sender> Senders { get; } = new();
+        public ObservableCollection<Recipient> Recipients { get; } = new();
+        public ObservableCollection<Message> Messages { get; } = new();
 
-        #region Command LoadServersCommand - Загрузка списка серверов
 
-        /// <summary>Загрузка списка серверов</summary>
-        private LambdaCommand _LoadServersCommand;
+        #region Command LoadDataCommand - Загрузка данных
 
-        /// <summary>Загрузка списка серверов</summary>
-        public ICommand LoadServersCommand => _LoadServersCommand
-            ??= new(OnLoadServersCommandExecuted);
+        /// <summary>Загрузка данных серверов</summary>
+        private LambdaCommand _LoadDataCommand;
 
-        /// <summary>Логика выполнения - Загрузка списка серверов</summary>
-        private void OnLoadServersCommandExecuted(object p)
+        /// <summary>Загрузка данных серверов</summary>
+        public ICommand LoadDataCommand => _LoadDataCommand
+            ??= new(OnLoadDataCommandExecuted);
+
+        /// <summary>Логика выполнения - Загрузка данных серверов</summary>
+        private void OnLoadDataCommandExecuted(object p)
         {
             Servers.Clear();
-            foreach (var server in _ServersRepository.GetAll())
-                Servers.Add(server);
+            Senders.Clear();
+            Recipients.Clear();
+            Messages.Clear();
+            foreach (var server in _ServersRepository.GetAll()) Servers.Add(server);
+            foreach (var server in _SendersRepository.GetAll()) Senders.Add(server);
+            foreach (var server in _RecipientsRepository.GetAll()) Recipients.Add(server);
+            foreach (var server in _MessagesRepository.GetAll()) Messages.Add(server);
         }
 
         #endregion

@@ -37,7 +37,7 @@ namespace MailSender
             services.AddSingleton<IMailService, DebugMailService>();
             services.AddSingleton<IRepository<Server>, InMemoryServersRepository>();
             services.AddSingleton<IRepository<Sender>, InMemorySendersRepository>();
-            services.AddSingleton<IRepository<Recipient>, InMemoryRecipientRepository>();
+            services.AddSingleton<IRepository<Recipient>, InMemoryRecipientsRepository>();
             services.AddSingleton<IRepository<Message>, InMemoryMessagesRepository>();
         }
 
