@@ -97,8 +97,11 @@ namespace MailSender.ViewModels
             Recipients.Clear();
             Messages.Clear();
             foreach (var server in _ServersRepository.GetAll()) Servers.Add(server);
+
             foreach (var server in _SendersRepository.GetAll()) Senders.Add(server);
+
             foreach (var server in _RecipientsRepository.GetAll()) Recipients.Add(server);
+
             foreach (var server in _MessagesRepository.GetAll()) Messages.Add(server);
         }
 
