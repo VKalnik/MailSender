@@ -3,10 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MailSender.Views"
+             xmlns:l="clr-namespace:MailSender.Views"
+             DataContext="{Binding MainModel, Source={StaticResource Locator}}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <DockPanel Margin="3">
+        <TextBlock DockPanel.Dock="Top" Text="Получатели" HorizontalAlignment="Center"
+                    FontWeight="Bold" FontSize="20"/>
+        <DockPanel DockPanel.Dock="Top" Margin="5,3">
+            <TextBlock Text="Фильтр:" Margin="0,0,3,0"/>
+            <TextBox/>
+        </DockPanel>
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1" HorizontalAlignment="Center" Margin="3">
+            <Button Content="Загрузить данные" Margin="3" Padding="15,5" Command="{Binding LoadDataCommand}"/>
+            <Button Content="Сохранить данные" Margin="3" Padding="15,5" IsEnabled="False"/>
+        </UniformGrid>
+        <DataGrid AutoGenerateColumns="False"
+                  ItemsSource="{Binding Recipients}"
+                  GridLinesVisibility="Vertical"
+                  VerticalGridLinesBrush="Gray"
+                  AlternatingRowBackground="LightGray"
+                  CanUserAddRows="False"
+                  HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" MinWidth="40" MaxWidth="60" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Имя" MinWidth="150" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Адрес" MinWidth="140" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="Описание" Width="*" MinWidth="120" Binding="{Binding Description}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
 </UserControl>
