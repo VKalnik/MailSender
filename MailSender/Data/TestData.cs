@@ -22,7 +22,7 @@ namespace MailSender.Data
             {
                 Id = i,
                 Name = $"Отправитель - {i}",
-                Address = $"sender-{i}.server.ru",
+                Address = $"sender-{i}@.server.ru",
                 Description = $"Описание отправителя {i}"
             })
             .ToList();
@@ -32,7 +32,7 @@ namespace MailSender.Data
             {
                 Id = i,
                 Name = $"Получатель - {i}",
-                Address = $"recipient-{i}.server.ru",
+                Address = $"recipient-{i}@.server.ru",
                 Description = $"Описание получателя {i}"
             })
             .ToList();
