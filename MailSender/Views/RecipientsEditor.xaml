@@ -20,7 +20,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Id" HorizontalAlignment="Right"/>
-        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding SelectedRecipient.Id}" Margin="3"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding SelectedRecipient.Id, NotifyOnValidationError=True}" Margin="3"
+                 Validation.Error="OnIdValidationError"/>
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Имя:" HorizontalAlignment="Right"/>
         <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SelectedRecipient.Name}" Margin="3"/>
