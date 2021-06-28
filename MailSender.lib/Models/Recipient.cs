@@ -1,14 +1,41 @@
-﻿namespace MailSender.Models
+﻿using System;
+using System.ComponentModel;
+using MailSender.Models.Base;
+
+namespace MailSender.Models
 {
-    public class Recipient
+    public class Recipient : Person, IDataErrorInfo
     {
-        public int Id { get; set; }
+        public override string Name
+        {
+            get => base.Name;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    throw new ArgumentException("Задана пустая строка имени", nameof(value));
+                base.Name = value;
+            }
+        }
 
-        public string Name { get; set; }
+        string IDataErrorInfo.Error => null;
+        string IDataErrorInfo.this[string PropertyName]
+        {
+            get
+            {
+                switch (PropertyName)
+                {
+                    default: return null;
 
-        public string Address { get; set; }
+                    case nameof(Name):
+                        var name = Name;
 
-        public string Description { get; set; }
+                        if (name is null) return "Строка имени не определена";
+                        if (name == "") return "Строка имени пуста";
+                        if (name.Length < 3 ) return "Имя должно быть не менее 3 символов";
 
+                        return null;
+                }
+            }
+        }
     }
 }
