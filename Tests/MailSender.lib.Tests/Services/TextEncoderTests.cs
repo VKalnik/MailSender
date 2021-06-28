@@ -1,4 +1,5 @@
-﻿using MailSender.Services;
+﻿using System.Diagnostics;
+using MailSender.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MailSender.lib.Tests.Services
@@ -6,6 +7,13 @@ namespace MailSender.lib.Tests.Services
     [TestClass]
     public class TextEncoderTests
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            Debug.WriteLine("Тест начат");
+        }
+        
+        
         [TestMethod]
         public void Encode_ABC_return_BCD_with_Key_1()
         {
