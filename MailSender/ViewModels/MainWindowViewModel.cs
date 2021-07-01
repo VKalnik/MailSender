@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using MailSender.Commands;
@@ -99,18 +100,23 @@ namespace MailSender.ViewModels
             Senders.Clear();
             Recipients.Clear();
             Messages.Clear();
+
             foreach (var server in _ServersRepository.GetAll()) Servers.Add(server);
+            SelectedServer = Servers.FirstOrDefault();
 
             foreach (var server in _SendersRepository.GetAll()) Senders.Add(server);
+            SelectedSender = Senders.FirstOrDefault();
 
             foreach (var server in _RecipientsRepository.GetAll()) Recipients.Add(server);
+            SelectedRecipient = Recipients.FirstOrDefault();
 
             foreach (var server in _MessagesRepository.GetAll()) Messages.Add(server);
+            SelectedMessage = Messages.FirstOrDefault();
         }
 
         #endregion
 
-        #region Command SendMessageCommand - Отправка почтыё
+        #region Command SendMessageCommand - Отправка почты
 
         /// <summary>Отправка почты</summary>
         private LambdaCommand _SendMessageCommand;
@@ -122,28 +128,56 @@ namespace MailSender.ViewModels
         /// <summary>Логика выполнения - Отправка почты</summary>
         private void OnSendMessageCommandExecuted(object p)
         {
-            _MailService.SendEmail("Отправитель", "Получатель", "Тема", "Тело письма");
+            var server = SelectedServer;
+            //_MailService.SendEmail("Отправитель", "Получатель", "Тема", "Тело письма");
+            var mail_sender = _MailService.GetSender(server.Address, server.Port, server.UseSSl, server.Login, server.Password);
+
+            var sender = SelectedSender;
+            var recipient = SelectedRecipient;
+            var message = SelectedMessage;
+
+            mail_sender.Send(sender.Address, recipient.Address, message.Title, message.Text);
         }
 
         #endregion
 
-        #region SelectedRecipient : Recipient - Выбрвный получатель
+        #region SelectedSender : Sender - Выбранный отправитель
 
-        /// <summary>Выбрвный получатель</summary>
+        /// <summary>Выбранный отправитель</summary>
+        private Sender _SelectedSender;
+
+        /// <summary>Выбранный отправитель</summary>
+        public Sender SelectedSender { get => _SelectedSender; set => Set(ref _SelectedSender, value); }
+
+        #endregion
+
+        #region SelectedRecipient : Recipient - Выбранный получатель
+
+        /// <summary>Выбранный получатель</summary>
         private Recipient _SelectedRecipient;
 
-        /// <summary>Выбрвный получатель</summary>
+        /// <summary>Выбранный получатель</summary>
         public Recipient SelectedRecipient { get => _SelectedRecipient; set => Set(ref _SelectedRecipient, value); }
 
         #endregion
 
-        #region SelectedServer : Server - Выбраный сервер
+        #region SelectedServer : Server - Выбранный сервер
 
-        /// <summary>Выбраный сервер</summary>
+        /// <summary>Выбранный сервер</summary>
         private Server _SelectedServer;
 
-        /// <summary>Выбраный сервер</summary>
+        /// <summary>Выбранный сервер</summary>
         public Server SelectedServer { get => _SelectedServer; set => Set(ref _SelectedServer, value); }
+
+        #endregion
+
+        #region SelectedMessage : Message - Выбранное сообшение
+
+        /// <summary>Выбранное сообшение</summary>
+        private Message _SelectedMessage;
+
+        /// <summary>Выбранное сообшение</summary>
+        public Message SelectedMessage { get => _SelectedMessage; set => Set(ref _SelectedMessage, value); }
 
         #endregion
 
