@@ -1,4 +1,6 @@
-﻿namespace MailSender.Interfaces
+﻿using System.Collections.Generic;
+
+namespace MailSender.Interfaces
 {
     public interface IMailService
     {
@@ -9,5 +11,11 @@
     public interface IMailSender
     {
         void Send(string SenderAddress, string RecipientAddress, string Subject, string Body);
+        
+        void Send(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body);
+
+        void SendParallel(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body);
+
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
+using System.Threading;
 using MailSender.Interfaces;
 
 namespace MailSender.Services
@@ -48,6 +50,22 @@ namespace MailSender.Services
                 };
 
                 client.Send(message);
+
+            }
+
+            public void Send(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
+            {
+                foreach (var recipients_address in RecipientAddress)
+                    Send(SenderAddress, recipients_address, Subject, Body);
+            }
+
+            public void SendParallel(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
+            {
+                foreach (var recipients_address in RecipientAddress)
+                    //ThreadPool.QueueUserWorkItem(_ => Send(SenderAddress, recipients_address, Subject, Body));
+                    ThreadPool.QueueUserWorkItem(p => 
+                        Send((string)((object[])p)[0], (string)((object[])p)[1], (string)((object[])p)[2], (string)((object[])p)[3]),
+                        new [] { SenderAddress, recipients_address, Subject, Body });
 
             }
         }
