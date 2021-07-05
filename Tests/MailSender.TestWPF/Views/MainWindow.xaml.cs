@@ -11,7 +11,7 @@ namespace MailSender.TestWPF
 
         private void Start_OnClick(object Sender, RoutedEventArgs E)
         {
-            new Thread(() => Calculate()).Start();
+            new Thread(() => Calculate()) {IsBackground = true} .Start();
         }
 
         private void Calculate(int Max = 100, int Timeout = 100)
