@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading;
+using System.Threading.Tasks;
 using MailSender.Interfaces;
 
 namespace MailSender.Services
@@ -50,22 +52,75 @@ namespace MailSender.Services
                 };
 
                 client.Send(message);
-
             }
 
             public void Send(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
             {
-                foreach (var recipients_address in RecipientAddress)
-                    Send(SenderAddress, recipients_address, Subject, Body);
+                foreach (var recipient_address in RecipientAddress)
+                    Send(SenderAddress, recipient_address, Subject, Body);
             }
 
             public void SendParallel(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
             {
                 foreach (var recipients_address in RecipientAddress)
                     //ThreadPool.QueueUserWorkItem(_ => Send(SenderAddress, recipients_address, Subject, Body));
-                    ThreadPool.QueueUserWorkItem(p => 
+                    ThreadPool.QueueUserWorkItem(p =>
                         Send((string)((object[])p)[0], (string)((object[])p)[1], (string)((object[])p)[2], (string)((object[])p)[3]),
-                        new [] { SenderAddress, recipients_address, Subject, Body });
+                        new[] { SenderAddress, recipients_address, Subject, Body });
+
+            }
+
+            public async Task SendAsync(string SenderAddress, 
+                string RecipientAddress, 
+                string Subject, 
+                string Body, 
+                CancellationToken Cancel = default)
+            {
+                Cancel.ThrowIfCancellationRequested();
+                
+                using var client = new SmtpClient(_ServerAddress, _Port)
+                {
+                    EnableSsl = _UseSsl,
+                    Credentials = new NetworkCredential
+                    {
+                        UserName = _Login,
+                        Password = _Password,
+                    }
+                };
+
+                using var message = new MailMessage(SenderAddress, RecipientAddress)
+                {
+                    Subject = Subject,
+                    Body = Body,
+                };
+
+                await client.SendMailAsync(message, Cancel).ConfigureAwait(false);
+            }
+
+            public async Task SendAsync(string SenderAddress,
+                IEnumerable<string> RecipientAddress,
+                string Subject,
+                string Body,
+                CancellationToken Cancel = default)
+            {
+                Cancel.ThrowIfCancellationRequested();
+                foreach (var recipient_address in RecipientAddress)
+                    await SendAsync(SenderAddress, recipient_address, Subject, Body, Cancel).ConfigureAwait(false);
+
+            }
+
+            public async Task SendParallelAsync(string SenderAddress,
+                IEnumerable<string> RecipientAddress,
+                string Subject,
+                string Body,
+                CancellationToken Cancel = default)
+            {
+                Cancel.ThrowIfCancellationRequested();
+
+                var tasks = RecipientAddress
+                   .Select(recipient_address => SendAsync(SenderAddress, recipient_address, Subject, Body, Cancel));
+
+                await Task.WhenAll(tasks).ConfigureAwait(false);
 
             }
         }
