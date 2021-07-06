@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace MailSender.TestWPF
 {
@@ -9,9 +11,39 @@ namespace MailSender.TestWPF
         public MainWindow() => InitializeComponent();
 
 
-        private void Start_OnClick(object Sender, RoutedEventArgs E)
+        //private void Start_OnClick(object Sender, RoutedEventArgs E)
+        //{
+        //    var thread_id = Thread.CurrentThread.ManagedThreadId;
+
+        //    new Thread(() => Calculate()) {IsBackground = true} .Start();
+        //}
+
+        private CancellationTokenSource _Cancellation;
+        private async void Start_OnClick(object Sender, RoutedEventArgs E)
         {
-            new Thread(() => Calculate()) {IsBackground = true} .Start();
+            var button = (Button) Sender;
+            button.IsEnabled = false;
+            CancelButton.IsEnabled = true;
+            Result.Text = "Идёт расчёт";
+
+            var cancellation = new CancellationTokenSource();
+            _Cancellation = cancellation;
+
+            var progress = new Progress<double>(p => Progress.Value = p * 100);
+
+            try
+            {
+                var result = await CalculateAsync(Progress: progress, Cancel: cancellation.Token);
+                Result.Text = result.ToString();
+            }
+            catch (OperationCanceledException)
+            {
+                Result.Text = "Отмена!";
+                Progress.Value = 0;
+            }
+
+            button.IsEnabled = true;
+            CancelButton.IsEnabled = false;
         }
 
         private void Calculate(int Max = 100, int Timeout = 100)
@@ -40,7 +72,29 @@ namespace MailSender.TestWPF
                 {
                     Result.Text = s.ToString();
                 });
+        }
 
+
+        private static async Task<int> CalculateAsync(int Max = 100, int Timeout = 100, IProgress<double> Progress = null, CancellationToken Cancel = default)
+        {
+            await Task.Delay(Timeout, Cancel).ConfigureAwait(false);
+
+            var s = 0;
+            for (var i = 0; i <= Max && !Cancel.IsCancellationRequested; i++)
+            {
+                s += i;
+                Progress?.Report((double)i / Max);
+                await Task.Delay(Timeout, Cancel).ConfigureAwait(false);
+            }
+            Cancel.ThrowIfCancellationRequested();
+
+            Progress?.Report(1);
+            return s;
+        }
+
+        private void Cancel_OnClick(object Sender, RoutedEventArgs E)
+        {
+            _Cancellation?.Cancel();
         }
     }
 }
