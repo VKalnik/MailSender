@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 using System.Threading;
+using System.Threading.Tasks;
 using MailSender.Interfaces;
 
 namespace MailSender.Services
@@ -44,6 +45,7 @@ namespace MailSender.Services
                     Send(SenderAddress, recipients_address, Subject, Body);
             }
 
+            
             public void SendParallel(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body)
             {
                 foreach (var recipients_address in RecipientAddress)
@@ -52,6 +54,26 @@ namespace MailSender.Services
                             Send((string)((object[])p)[0], (string)((object[])p)[1], (string)((object[])p)[2], (string)((object[])p)[3]),
                         new[] { SenderAddress, recipients_address, Subject, Body });
 
+            }
+            public Task SendAsync(string SenderAddress, string RecipientAddress, string Subject, string Body, CancellationToken Cancel = default)
+            {
+                //Debug.WriteLine($"Отправка почты через {_ServerAddress}:{_Port} SSL:{_UseSsl}\r\n\t"
+                //    + $"from {SenderAddress} to {RecipientAddress}\r\n\t"
+                //    + $"msg ({Subject}):{Body}");
+                Debug.WriteLine("Отправка почты ... асинхронно");
+                return Task.CompletedTask;
+            }
+
+            public Task SendAsync(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body, CancellationToken Cancel = default)
+            {
+                Debug.WriteLine("Отправка почты ... асинхронно последовательно, по списку получателей");
+                return Task.CompletedTask;
+            }
+
+            public Task SendParallelAsync(string SenderAddress, IEnumerable<string> RecipientAddress, string Subject, string Body, CancellationToken Cancel = default)
+            {
+                Debug.WriteLine("Отправка почты ... асинхронно параллельно, по списку получателей");
+                return Task.CompletedTask;
             }
         }
     }

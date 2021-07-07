@@ -1,16 +1,21 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MailSender.TestConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            //ThreadsIntro.Run();
-            //CriticalSection.Run();
-            ThreadSynchronization.Run();
+            //TasksOverview.Run();
+            //TPL_Overview.Run();
+            //TasksOverview.RunAsync().Wait();
+            //await TasksOverview.RunAsync();
+            await ReadingFileTest.RunAsync();
 
-            Console.WriteLine("Работа завершенна. Нажмите Enter для выхода.");
+
+            Console.WriteLine("Работа завершена, нажмите Enter для выхода.");
             Console.ReadLine();
         }
     }
