@@ -37,6 +37,7 @@ namespace MailSender
 
             services.AddScoped<MainWindowViewModel>();
             services.AddScoped<IStatistic, InMemoryStatisticService>();
+            services.AddScoped<IMailScheduler, MailSchedulerTPL>();
 
             services.AddScoped<IMailService, DebugMailService>();
             //services.AddScoped<IMailService, SmtpMailService>();
@@ -45,6 +46,8 @@ namespace MailSender
             services.AddScoped<IRepository<Sender>, InMemorySendersRepository>();
             services.AddScoped<IRepository<Recipient>, InMemoryRecipientsRepository>();
             services.AddScoped<IRepository<Message>, InMemoryMessagesRepository>();
+            services.AddScoped<IRepository<SchedulerTask>, InMemorySchedulerTasksRepository>();
+            services.AddScoped<IRepository<EmailsList>, InMemoryEmailsListsRepository>();
 
             services.AddScoped<IUserDialog, WindowUserDialogService>();
         }
